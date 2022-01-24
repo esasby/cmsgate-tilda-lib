@@ -8,12 +8,6 @@
 
 namespace esas\cmsgate;
 
-use Drupal\commerce_payment\Entity\PaymentGateway;
-use esas\cmsgate\cache\Cache;
-use esas\cmsgate\cache\ConfigStorageCached;
-use esas\cmsgate\utils\StringUtils;
-use Exception;
-
 class ConfigStorageTilda extends ConfigStorageCached
 {
     public function __construct($orderCache)
@@ -35,5 +29,9 @@ class ConfigStorageTilda extends ConfigStorageCached
             default:
                 return null;
         }
+    }
+
+    public function createCmsRelatedKey($key) {
+        return 'ps_' . $key;
     }
 }

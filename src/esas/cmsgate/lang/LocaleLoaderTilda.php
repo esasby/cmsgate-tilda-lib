@@ -7,8 +7,6 @@
  */
 
 namespace esas\cmsgate\lang;
-
-use esas\cmsgate\cache\LocaleLoaderCache;
 use esas\cmsgate\tilda\RequestParamsTilda;
 
 class LocaleLoaderTilda extends LocaleLoaderCache

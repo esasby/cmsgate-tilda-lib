@@ -2,7 +2,6 @@
 
 namespace esas\cmsgate\wrappers;
 
-use esas\cmsgate\cache\OrderWrapperCached;
 use esas\cmsgate\OrderStatus;
 use esas\cmsgate\tilda\RequestParamsTilda;
 use Throwable;
@@ -98,7 +97,8 @@ class OrderWrapperTilda extends OrderWrapperCached
     {
         if ($this->products != null)
             return $this->products;
-        foreach ($this->orderCache->getOrderData()['items'] as $basketItem)
+        $items = json_decode($this->orderCache->getOrderData()['items'], true);
+        foreach ($items as $basketItem)
             $this->products[] = new OrderProductWrapperTilda($basketItem);
         return $this->products;
     }

@@ -8,7 +8,6 @@
 
 namespace esas\cmsgate;
 
-use esas\cmsgate\cache\CmsConnectorCached;
 use esas\cmsgate\descriptors\CmsConnectorDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
@@ -49,5 +48,11 @@ class CmsConnectorTilda extends CmsConnectorCached
     public function createLocaleLoaderCached($cache)
     {
         return new LocaleLoaderTilda($cache);
+    }
+
+    public function createConfigStorage()
+    {
+        $cache = Registry::getRegistry()->getCacheRepository()->getSessionCacheSafe();
+        return new ConfigStorageTilda($cache);
     }
 }
