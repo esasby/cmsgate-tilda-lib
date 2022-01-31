@@ -18,12 +18,16 @@ class ConfigStorageTilda extends ConfigStorageCached
     public function getConstantConfigValue($key)
     {
         switch ($key) {
+            case ConfigFields::orderStatusPending():
             case ConfigFields::orderPaymentStatusPending():
                 return "cmsgate_pending";
+            case ConfigFields::orderStatusPayed():
             case ConfigFields::orderPaymentStatusPayed():
                 return "cmsgate_payed";
+            case ConfigFields::orderStatusFailed():
             case ConfigFields::orderPaymentStatusFailed():
                 return "cmsgate_failed";
+            case ConfigFields::orderStatusCanceled():
             case ConfigFields::orderPaymentStatusCanceled():
                 return "cmsgate_canceled";
             default:

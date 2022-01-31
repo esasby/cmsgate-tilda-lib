@@ -11,16 +11,15 @@ use esas\cmsgate\tilda\RequestParamsTilda;
 
 class LocaleLoaderTilda extends LocaleLoaderCache
 {
+    public function __construct($orderCache)
+    {
+        parent::__construct($orderCache);
+    }
+
     public function getLocale()
     {
         if ($this->orderCache == null)
             return parent::getLocale();
         return $this->orderCache->getOrderData()[RequestParamsTilda::LANG];
-    }
-
-
-    public function getCmsVocabularyDir()
-    {
-        return dirname(__FILE__);
     }
 }

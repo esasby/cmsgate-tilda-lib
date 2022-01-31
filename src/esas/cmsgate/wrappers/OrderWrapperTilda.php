@@ -119,7 +119,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getClientIdUnsafe()
     {
-        return $this->order->getCustomerId();
+        return 'UNKNOWN';
     }
 
 }

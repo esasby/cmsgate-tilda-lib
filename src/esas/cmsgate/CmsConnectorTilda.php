@@ -12,9 +12,11 @@ use esas\cmsgate\descriptors\CmsConnectorDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
 use esas\cmsgate\lang\LocaleLoaderTilda;
+use esas\cmsgate\tilda\RequestParamsTilda;
+use esas\cmsgate\utils\CMSGateException;
 use esas\cmsgate\wrappers\OrderWrapperTilda;
 
-class CmsConnectorTilda extends CmsConnectorCached
+abstract class CmsConnectorTilda extends CmsConnectorCached
 {
     /**
      * Для удобства работы в IDE и подсветки синтаксиса.
@@ -35,8 +37,8 @@ class CmsConnectorTilda extends CmsConnectorCached
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v1.15.0",
-                "2022-01-12"
+                "v1.16.0",
+                "2022-01-31"
             ),
             "Cmsgate Tilda connector",
             "https://bitbucket.esas.by/projects/CG/repos/cmsgate-tilda-lib/browse",
@@ -55,4 +57,29 @@ class CmsConnectorTilda extends CmsConnectorCached
         $cache = Registry::getRegistry()->getCacheRepository()->getSessionCacheSafe();
         return new ConfigStorageTilda($cache);
     }
+
+    public abstract function getNotificationURL();
+
+    public abstract function getNotificationSecret();
+
+    /**
+     * @throws CMSGateException
+     * @param $request
+     * @return mixed
+     */
+    public abstract function checkSignature($request);
+
+    /**
+     * @param OrderWrapperTilda $orderWrapper
+     * @return mixed
+     */
+    public abstract function createNotificationSignature($orderWrapper);
+
+    public function getReturnToShopURL()
+    {
+        $cache = Registry::getRegistry()->getCacheRepository()->getSessionCacheSafe();
+        return $cache->getOrderData()[RequestParamsTilda::SUCCESS_URL];
+    }
+
+
 }
