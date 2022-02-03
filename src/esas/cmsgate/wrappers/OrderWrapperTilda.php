@@ -97,7 +97,7 @@ class OrderWrapperTilda extends OrderWrapperCached
     {
         if ($this->products != null)
             return $this->products;
-        $items = json_decode($this->orderCache->getOrderData()['items'], true);
+        $items = json_decode($this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ITEMS], true);
         foreach ($items as $basketItem)
             $this->products[] = new OrderProductWrapperTilda($basketItem);
         return $this->products;

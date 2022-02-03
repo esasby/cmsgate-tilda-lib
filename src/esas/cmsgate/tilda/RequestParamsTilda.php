@@ -15,6 +15,7 @@ class RequestParamsTilda
     const ORDER_ID = 'order_id';
     const ORDER_AMOUNT = 'order_amount';
     const ORDER_CURRENCY = 'order_currency';
+    const ORDER_ITEMS = 'order_items';
     const CUSTOMER_FIO = 'customer_fio';
     const CUSTOMER_PHONE = 'customer_phone';
     const CUSTOMER_EMAIL = 'customer_email';
