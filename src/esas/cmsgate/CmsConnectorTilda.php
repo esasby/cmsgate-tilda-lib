@@ -37,8 +37,8 @@ abstract class CmsConnectorTilda extends CmsConnectorCached
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v1.16.1",
-                "2022-02-03"
+                "v1.16.2",
+                "2022-02-04"
             ),
             "Cmsgate Tilda connector",
             "https://bitbucket.esas.by/projects/CG/repos/cmsgate-tilda-lib/browse",
@@ -58,7 +58,10 @@ abstract class CmsConnectorTilda extends CmsConnectorCached
         return new ConfigStorageTilda($cache);
     }
 
-    public abstract function getNotificationURL();
+    public function getNotificationURL() {
+        $cache = Registry::getRegistry()->getCacheRepository()->getSessionCacheSafe();
+        return $cache->getOrderData()[RequestParamsTilda::NOTIFICATION_URL];
+    }
 
     public abstract function getNotificationSecret();
 

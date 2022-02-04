@@ -4,6 +4,7 @@ namespace esas\cmsgate\wrappers;
 
 use esas\cmsgate\OrderStatus;
 use esas\cmsgate\tilda\RequestParamsTilda;
+use esas\cmsgate\utils\StringUtils;
 use Throwable;
 
 class OrderWrapperTilda extends OrderWrapperCached
@@ -24,7 +25,8 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getOrderIdUnsafe()
     {
-        return $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ID];
+        $tildaProjectAndOrderId = $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ID];
+        return StringUtils::substrAfter($tildaProjectAndOrderId, ":");
     }
 
     /**
