@@ -12,6 +12,7 @@ class TildaNotifyRq extends TildaRq
 {
     private $orderId;
     private $amount;
+    private $currency;
     private $signature;
 
     /**
@@ -44,6 +45,22 @@ class TildaNotifyRq extends TildaRq
     public function setAmount($amount)
     {
         $this->amount = $amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param mixed $currency
+     */
+    public function setCurrency($currency): void
+    {
+        $this->currency = $currency;
     }
 
     /**

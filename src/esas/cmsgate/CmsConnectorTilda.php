@@ -37,7 +37,7 @@ abstract class CmsConnectorTilda extends CmsConnectorCached
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v1.16.3",
+                "v1.16.4",
                 "2022-02-07"
             ),
             "Cmsgate Tilda connector",

@@ -43,6 +43,7 @@ class ProtocolTilda extends ProtocolCurl
             $postData = array();
             $postData[RequestParamsTilda::ORDER_ID] = $notifyRq->getOrderId();
             $postData[RequestParamsTilda::ORDER_AMOUNT] = $notifyRq->getAmount();
+            $postData[RequestParamsTilda::ORDER_CURRENCY] = $notifyRq->getCurrency();
             $postData[RequestParamsTilda::SIGNATURE] = $notifyRq->getSignature();
             $postData[RequestParamsTilda::PAYMENT_STATUES] = 'payed';
 

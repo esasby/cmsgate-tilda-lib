@@ -36,6 +36,7 @@ class ControllerTildaNotify extends ControllerTilda
             $notifyTildaRq = new TildaNotifyRq();
             $notifyTildaRq->setOrderId($orderWrapper->getOrderId());
             $notifyTildaRq->setAmount($orderWrapper->getAmount());
+            $notifyTildaRq->setCurrency($orderWrapper->getCurrency());
             $notifyTildaRq->setSignature(Registry::getRegistry()->getCmsConnector()->createNotificationSignature($orderWrapper));
 
             $protocol = new ProtocolTilda(Registry::getRegistry()->getCmsConnector()->getNotificationURL());
