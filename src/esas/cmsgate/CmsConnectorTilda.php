@@ -37,7 +37,7 @@ abstract class CmsConnectorTilda extends CmsConnectorCached
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v1.16.4",
+                "v1.16.5",
                 "2022-02-07"
             ),
             "Cmsgate Tilda connector",
@@ -78,11 +78,15 @@ abstract class CmsConnectorTilda extends CmsConnectorCached
      */
     public abstract function createNotificationSignature($orderWrapper);
 
-    public function getReturnToShopURL()
+    public function getReturnToShopSuccessURL()
     {
         $cache = Registry::getRegistry()->getCacheRepository()->getSessionCacheSafe();
         return $cache->getOrderData()[RequestParamsTilda::SUCCESS_URL];
     }
 
-
+    public function getReturnToShopFailedURL()
+    {
+        $cache = Registry::getRegistry()->getCacheRepository()->getSessionCacheSafe();
+        return $cache->getOrderData()[RequestParamsTilda::FAILED_URL];
+    }
 }
