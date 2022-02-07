@@ -8,9 +8,6 @@
 
 namespace esas\cmsgate\protocol;
 
-
-use esas\cmsgate\epos\protocol\TildaRs;
-
 class TildaNotifyRs extends TildaRs
 {
 

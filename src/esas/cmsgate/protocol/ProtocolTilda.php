@@ -2,17 +2,8 @@
 
 namespace esas\cmsgate\protocol;
 
-use esas\cmsgate\epos\protocol\TildaRs;
-use esas\cmsgate\epos\RegistryEpos;
-use esas\cmsgate\epos\view\admin\AdminViewFieldsEpos;
-use esas\cmsgate\epos\wrappers\ConfigWrapperEpos;
-use esas\cmsgate\protocol\Amount;
-use esas\cmsgate\protocol\ProtocolCurl;
-use esas\cmsgate\protocol\ProtocolError;
-use esas\cmsgate\protocol\RqMethod;
-use esas\cmsgate\protocol\RsType;
 use esas\cmsgate\tilda\RequestParamsTilda;
-use esas\cmsgate\utils\CMSGateException;
+use esas\cmsgate\utils\StringUtils;
 use Exception;
 use Throwable;
 
@@ -60,9 +51,9 @@ class ProtocolTilda extends ProtocolCurl
             if ($rsStr == null) {
                 throw new Exception("Null response!", TildaRs::ERROR_NULL_RESP);
             }
-            if ($rsStr !== 'OK') {
+            if (!StringUtils::endsWith($rsStr,'OK')) {
                 $resp->setResponseCode(TildaRs::ERROR_RESP_NOT_OK);
-                $resp->setResponseMessage('Got [' . $rsStr . '] code from Tilda');
+                $resp->setResponseMessage('Got ERROR from Tilda');
             }
             $this->logger->debug($loggerMainString . "notify ended");
         } catch (Throwable $e) {

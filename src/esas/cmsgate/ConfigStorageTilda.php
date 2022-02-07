@@ -30,6 +30,8 @@ class ConfigStorageTilda extends ConfigStorageCached
             case ConfigFields::orderStatusCanceled():
             case ConfigFields::orderPaymentStatusCanceled():
                 return "cmsgate_canceled";
+            case ConfigFields::useOrderNumber():
+                return true;
             default:
                 return null;
         }

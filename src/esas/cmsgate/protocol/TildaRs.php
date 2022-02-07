@@ -6,7 +6,7 @@
  * Time: 12:47
  */
 
-namespace esas\cmsgate\epos\protocol;
+namespace esas\cmsgate\protocol;
 
 
 class TildaRs

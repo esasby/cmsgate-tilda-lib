@@ -20,10 +20,21 @@ class OrderWrapperTilda extends OrderWrapperCached
     }
 
     /**
-     * Уникальный номер заказ в рамках CMS
+     * Уникальный идентификатор заказ в рамках CMS.
+     * В Tilda это <номеро проекта>:<номер заказа>
      * @return string
      */
     public function getOrderIdUnsafe()
+    {
+        $tildaProjectAndOrderId = $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ID];
+        return $tildaProjectAndOrderId;
+    }
+
+    /**
+     * Для более удобной работы клиента со счетом, убираем из идентификатора заказ номер проекта
+     * @return string
+     */
+    public function getOrderNumberUnsafe()
     {
         $tildaProjectAndOrderId = $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ID];
         return StringUtils::substrAfter($tildaProjectAndOrderId, ":");
