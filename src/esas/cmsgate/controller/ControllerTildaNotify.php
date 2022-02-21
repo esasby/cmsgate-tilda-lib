@@ -8,7 +8,6 @@
 
 namespace esas\cmsgate\controller;
 
-use esas\cmsgate\CmsConnectorTilda;
 use esas\cmsgate\protocol\ProtocolTilda;
 use esas\cmsgate\protocol\TildaNotifyRq;
 use esas\cmsgate\protocol\TildaNotifyRs;
@@ -37,8 +36,6 @@ class ControllerTildaNotify extends ControllerTilda
             $notifyTildaRq->setOrderId($orderWrapper->getOrderId());
             $notifyTildaRq->setAmount($orderWrapper->getAmount());
             $notifyTildaRq->setCurrency($orderWrapper->getCurrency());
-            $notifyTildaRq->setSignature(Registry::getRegistry()->getCmsConnector()->createNotificationSignature($orderWrapper));
-
             $protocol = new ProtocolTilda(Registry::getRegistry()->getCmsConnector()->getNotificationURL());
             $resp = $protocol->notifyOnOrderPayed($notifyTildaRq);
             if ($resp->hasError()) {

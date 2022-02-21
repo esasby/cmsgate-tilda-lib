@@ -10,21 +10,19 @@ namespace esas\cmsgate\controller;
 
 
 use esas\cmsgate\controllers\Controller;
-use esas\cmsgate\epos\protocol\IiiProtocol;
 use esas\cmsgate\Registry;
-use esas\cmsgate\epos\RegistryEpos;
-use esas\cmsgate\epos\wrappers\ConfigWrapperEpos;
+use esas\cmsgate\wrappers\ConfigWrapper;
 use Exception;
 
 abstract class ControllerTilda extends Controller
 {
     /**
-     * @var ConfigWrapperEpos
+     * @var ConfigWrapper
      */
     protected $configWrapper;
 
     /**
-     * @var RegistryEpos
+     * @var Registry
      */
     protected $registry;
 

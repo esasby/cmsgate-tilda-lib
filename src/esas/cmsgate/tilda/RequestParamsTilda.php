@@ -20,7 +20,7 @@ class RequestParamsTilda
     const CUSTOMER_PHONE = 'customer_phone';
     const CUSTOMER_EMAIL = 'customer_email';
     const SIGNATURE = 'signature';
-    const PAYMENT_STATUES = 'payment_status';
+    const PAYMENT_STATUS = 'payment_status';
     const NOTIFICATION_URL = 'tilda_notification_url';
     const SUCCESS_URL = 'tilda_success_url';
     const FAILED_URL = 'tilda_failed_url';

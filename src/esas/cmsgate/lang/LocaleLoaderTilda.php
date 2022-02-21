@@ -9,11 +9,13 @@
 namespace esas\cmsgate\lang;
 use esas\cmsgate\tilda\RequestParamsTilda;
 
-class LocaleLoaderTilda extends LocaleLoaderCache
+class LocaleLoaderTilda extends LocaleLoaderCms
 {
+    private $orderCache;
+
     public function __construct($orderCache)
     {
-        parent::__construct($orderCache);
+        $this->orderCache = $orderCache;
     }
 
     public function getLocale()

@@ -8,11 +8,11 @@
 
 namespace esas\cmsgate;
 
-class ConfigStorageTilda extends ConfigStorageCached
+class ConfigStorageTilda extends ConfigStorageCmsArray
 {
-    public function __construct($orderCache)
+    public function __construct($configArray)
     {
-        parent::__construct($orderCache);
+        parent::__construct($configArray);
     }
 
     public function getConstantConfigValue($key)

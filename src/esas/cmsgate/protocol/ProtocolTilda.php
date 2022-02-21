@@ -2,23 +2,16 @@
 
 namespace esas\cmsgate\protocol;
 
+use esas\cmsgate\CloudRegistry;
+use esas\cmsgate\Registry;
 use esas\cmsgate\tilda\RequestParamsTilda;
+use esas\cmsgate\utils\CloudSessionUtils;
 use esas\cmsgate\utils\StringUtils;
 use Exception;
 use Throwable;
 
 class ProtocolTilda extends ProtocolCurl
 {
-    const EPOS_URL_REAL_UPS = 'https://api.e-pos.by/public/'; // рабочий
-    const EPOS_URL_REAL_ESAS = 'https://api-epos.hgrosh.by/public/'; // рабочий
-    const EPOS_URL_REAL_RRB = 'https://api.e-pos.by/rrb/public/'; // рабочий
-    const EPOS_URL_TEST = 'https://api-dev.hgrosh.by/epos/public/'; // тестовый
-
-    /**
-     * @var string
-     */
-    private $authToken;
-
     /**
      * @throws Exception
      */
@@ -44,9 +37,11 @@ class ProtocolTilda extends ProtocolCurl
             $postData[RequestParamsTilda::ORDER_ID] = $notifyRq->getOrderId();
             $postData[RequestParamsTilda::ORDER_AMOUNT] = $notifyRq->getAmount();
             $postData[RequestParamsTilda::ORDER_CURRENCY] = $notifyRq->getCurrency();
-            $postData[RequestParamsTilda::SIGNATURE] = $notifyRq->getSignature();
-            $postData[RequestParamsTilda::PAYMENT_STATUES] = 'payed';
-
+            $postData[RequestParamsTilda::PAYMENT_STATUS] = 'payed';
+            if ($notifyRq->getSignature() == null || $notifyRq->getSignature() == '') {
+                $postData[RequestParamsTilda::SIGNATURE] = $this->generateNotificationSignature($postData);
+            } else
+                $postData[RequestParamsTilda::SIGNATURE] = $notifyRq->getSignature();
             // запрос
             $rsStr = $this->requestPost('', $postData, RsType::_STRING);
             if ($rsStr == null) {
@@ -69,6 +64,17 @@ class ProtocolTilda extends ProtocolCurl
         return $resp;
     }
 
+    private function generateNotificationSignature($request) {
+        $secret = CloudSessionUtils::getConfigCacheObj()->getSecret();
+        $line = $request[RequestParamsTilda::ORDER_ID]
+            . '|' . $request[RequestParamsTilda::PAYMENT_STATUS]
+            . '|' . $request[RequestParamsTilda::ORDER_AMOUNT]
+            . '|' . $secret
+            . '|' . $request[RequestParamsTilda::ORDER_CURRENCY];
+        $this->logger->info('Sign values: ' . $line);
+        return hash('sha256', $line);
+    }
+
     /**
      * Подключение GET, POST или DELETE
      *
@@ -84,9 +90,6 @@ class ProtocolTilda extends ProtocolCurl
     {
         try {
             $url = $this->connectionUrl . $method;
-//            $headers = array();
-//            $headers[] = 'Content-Type: application/json';
-//            $headers[] = 'Authorization: Bearer ' . $this->authToken;
             $this->defaultCurlInit($url);
             curl_setopt($this->ch, CURLOPT_HEADER, $this->configurationWrapper->isSandbox()); // включение заголовков в выводе
             curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false); // не проверять сертификат узла сети
