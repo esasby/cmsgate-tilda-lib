@@ -36,8 +36,8 @@ class CmsConnectorTilda extends CmsConnectorCached
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v1.17.1",
-                "2022-02-22"
+                "v1.17.2",
+                "2022-02-25"
             ),
             "Cmsgate Tilda connector",
             "https://bitbucket.esas.by/projects/CG/repos/cmsgate-tilda-lib/browse",
@@ -53,7 +53,7 @@ class CmsConnectorTilda extends CmsConnectorCached
 
     public function createConfigStorage()
     {
-        return new ConfigStorageTilda($this->mergeConfigFromCache());
+        return new ConfigStorageTilda();
     }
 
     public function getNotificationURL() {
