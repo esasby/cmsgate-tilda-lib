@@ -6,9 +6,8 @@ namespace esas\cmsgate\security;
 
 use esas\cmsgate\tilda\RequestParamsTilda;
 
-class ApiAuthServiceTilda extends ApiAuthServiceBySecret
+class CmsAuthServiceTilda extends CmsAuthServiceBySecret
 {
-
     public function generateVerificationSignature($request, $secret)
     {
         $line = $request[RequestParamsTilda::ORDER_ID]

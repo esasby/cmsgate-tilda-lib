@@ -2,10 +2,9 @@
 
 namespace esas\cmsgate\protocol;
 
-use esas\cmsgate\CloudRegistry;
-use esas\cmsgate\Registry;
+use esas\cmsgate\bridge\ShopConfigBridge;
+use esas\cmsgate\BridgeConnector;
 use esas\cmsgate\tilda\RequestParamsTilda;
-use esas\cmsgate\utils\CloudSessionUtils;
 use esas\cmsgate\utils\StringUtils;
 use Exception;
 use Throwable;
@@ -65,7 +64,9 @@ class ProtocolTilda extends ProtocolCurl
     }
 
     private function generateNotificationSignature($request) {
-        $secret = CloudSessionUtils::getConfigCacheObj()->getSecret();
+        /** @var ShopConfigBridge $shopConfig */
+        $shopConfig = BridgeConnector::fromRegistry()->getShopConfigService()->getSessionShopConfigSafe();
+        $secret = $shopConfig->getCmsSecret();
         $line = $request[RequestParamsTilda::ORDER_ID]
             . '|' . $request[RequestParamsTilda::PAYMENT_STATUS]
             . '|' . $request[RequestParamsTilda::ORDER_AMOUNT]

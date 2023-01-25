@@ -8,8 +8,23 @@
 
 namespace esas\cmsgate;
 
-class ConfigStorageTilda extends ConfigStorageCloud
+class ConfigStorageTilda extends ConfigStorageBridge
 {
+    private $configFieldLogin;
+    private $configFieldPassword;
+
+    /**
+     * ConfigCacheService constructor.
+     * @param $configFieldLogin
+     * @param $configFieldPassword
+     */
+    public function __construct($configFieldLogin, $configFieldPassword)
+    {
+        parent::__construct();
+        $this->configFieldLogin = $configFieldLogin;
+        $this->configFieldPassword = $configFieldPassword;
+    }
+
     public function getConstantConfigValue($key)
     {
         switch ($key) {
@@ -34,5 +49,15 @@ class ConfigStorageTilda extends ConfigStorageCloud
 
     public function createCmsRelatedKey($key) {
         return 'ps_' . $key;
+    }
+
+    public function getConfig($key)
+    {
+        if ($key == $this->configFieldLogin)
+            return $this->shopConfig->getPaysystemLogin();
+        elseif ($key == $this->configFieldPassword)
+            return $this->shopConfig->getPaysystemPassword();
+        else
+            return parent::getConfig($key);
     }
 }
