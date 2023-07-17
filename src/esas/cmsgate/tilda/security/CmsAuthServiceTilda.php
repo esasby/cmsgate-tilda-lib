@@ -1,10 +1,11 @@
 <?php
 
 
-namespace esas\cmsgate\security;
+namespace esas\cmsgate\tilda\security;
 
 
-use esas\cmsgate\tilda\RequestParamsTilda;
+use esas\cmsgate\bridge\security\CmsAuthServiceBySecret;
+use esas\cmsgate\tilda\protocol\RequestParamsTilda;
 
 class CmsAuthServiceTilda extends CmsAuthServiceBySecret
 {

@@ -18,8 +18,8 @@
   "require": {
     "php": ">= 5.6.0",
     "ext-curl": "*",
-    "esas/cmsgate-core": "~v1.17.13",
-    "esas/cmsgate-bridge-lib": "~v1.18.3"
+    "esas/cmsgate-core": "~v2.2.6",
+    "esas/cmsgate-bridge-lib": "~v2.2.1"
   },
   "autoload": {
     "psr-4": {

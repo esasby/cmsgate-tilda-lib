@@ -6,7 +6,7 @@
  * Time: 15:38
  */
 
-namespace esas\cmsgate\protocol;
+namespace esas\cmsgate\tilda\protocol;
 
 class TildaNotifyRs extends TildaRs
 {

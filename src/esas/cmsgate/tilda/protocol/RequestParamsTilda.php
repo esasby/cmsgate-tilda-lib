@@ -6,7 +6,7 @@
  * Time: 14:59
  */
 
-namespace esas\cmsgate\tilda;
+namespace esas\cmsgate\tilda\protocol;
 
 
 class RequestParamsTilda

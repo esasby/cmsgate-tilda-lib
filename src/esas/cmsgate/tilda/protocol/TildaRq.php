@@ -6,7 +6,7 @@
  * Time: 12:47
  */
 
-namespace esas\cmsgate\protocol;
+namespace esas\cmsgate\tilda\protocol;
 
 use esas\cmsgate\utils\Logger;
 

@@ -6,14 +6,17 @@
  * Time: 12:23
  */
 
-namespace esas\cmsgate;
+namespace esas\cmsgate\tilda;
 
+use esas\cmsgate\bridge\CmsConnectorBridge;
+use esas\cmsgate\bridge\service\OrderService;
 use esas\cmsgate\descriptors\CmsConnectorDescriptor;
 use esas\cmsgate\descriptors\VendorDescriptor;
 use esas\cmsgate\descriptors\VersionDescriptor;
-use esas\cmsgate\lang\LocaleLoaderTilda;
-use esas\cmsgate\tilda\RequestParamsTilda;
-use esas\cmsgate\wrappers\OrderWrapperTilda;
+use esas\cmsgate\Registry;
+use esas\cmsgate\tilda\lang\LocaleLoaderTilda;
+use esas\cmsgate\tilda\protocol\RequestParamsTilda;
+use esas\cmsgate\tilda\wrappers\OrderWrapperTilda;
 
 class CmsConnectorTilda extends CmsConnectorBridge
 {
@@ -36,8 +39,8 @@ class CmsConnectorTilda extends CmsConnectorBridge
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v1.18.0",
-                "2023-01-25"
+                "v2.0.0",
+                "2023-05-26"
             ),
             "Cmsgate Tilda connector",
             "https://bitbucket.esas.by/projects/CG/repos/cmsgate-tilda-lib/browse",
@@ -52,19 +55,19 @@ class CmsConnectorTilda extends CmsConnectorBridge
     }
 
     public function getNotificationURL() {
-        $cache = BridgeConnector::fromRegistry()->getOrderCacheService()->getSessionOrderCacheSafe();
+        $cache = OrderService::fromRegistry()->getSessionOrderSafe();
         return $cache->getOrderData()[RequestParamsTilda::NOTIFICATION_URL];
     }
 
     public function getReturnToShopSuccessURL()
     {
-        $cache = BridgeConnector::fromRegistry()->getOrderCacheService()->getSessionOrderCacheSafe();
+        $cache = OrderService::fromRegistry()->getSessionOrderSafe();
         return $cache->getOrderData()[RequestParamsTilda::SUCCESS_URL];
     }
 
     public function getReturnToShopFailedURL()
     {
-        $cache = BridgeConnector::fromRegistry()->getOrderCacheService()->getSessionOrderCacheSafe();
+        $cache = OrderService::fromRegistry()->getSessionOrderSafe();
         return $cache->getOrderData()[RequestParamsTilda::FAILED_URL];
     }
 }

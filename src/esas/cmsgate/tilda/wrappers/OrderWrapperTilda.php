@@ -1,9 +1,10 @@
 <?php
 
-namespace esas\cmsgate\wrappers;
+namespace esas\cmsgate\tilda\wrappers;
 
+use esas\cmsgate\bridge\wrappers\OrderWrapperCached;
 use esas\cmsgate\OrderStatus;
-use esas\cmsgate\tilda\RequestParamsTilda;
+use esas\cmsgate\tilda\protocol\RequestParamsTilda;
 use esas\cmsgate\utils\StringUtils;
 use Throwable;
 
@@ -14,9 +15,9 @@ class OrderWrapperTilda extends OrderWrapperCached
     /**
      * @param $order
      */
-    public function __construct($orderCache)
+    public function __construct($order)
     {
-        parent::__construct($orderCache);
+        parent::__construct($order);
     }
 
     /**
@@ -26,7 +27,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getOrderIdUnsafe()
     {
-        $tildaProjectAndOrderId = $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ID];
+        $tildaProjectAndOrderId = $this->order->getOrderData()[RequestParamsTilda::ORDER_ID];
         return $tildaProjectAndOrderId;
     }
 
@@ -36,7 +37,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getOrderNumberUnsafe()
     {
-        $tildaProjectAndOrderId = $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ID];
+        $tildaProjectAndOrderId = $this->order->getOrderData()[RequestParamsTilda::ORDER_ID];
         return StringUtils::substrAfter($tildaProjectAndOrderId, ":");
     }
 
@@ -46,7 +47,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getFullNameUnsafe()
     {
-        return $this->orderCache->getOrderData()[RequestParamsTilda::CUSTOMER_FIO];
+        return $this->order->getOrderData()[RequestParamsTilda::CUSTOMER_FIO];
     }
 
     /**
@@ -56,7 +57,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getMobilePhoneUnsafe()
     {
-        return $this->orderCache->getOrderData()[RequestParamsTilda::CUSTOMER_PHONE];
+        return $this->order->getOrderData()[RequestParamsTilda::CUSTOMER_PHONE];
     }
 
     /**
@@ -66,7 +67,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getEmailUnsafe()
     {
-        return $this->orderCache->getOrderData()[RequestParamsTilda::CUSTOMER_EMAIL];
+        return $this->order->getOrderData()[RequestParamsTilda::CUSTOMER_EMAIL];
     }
 
     /**
@@ -75,7 +76,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getAddressUnsafe()
     {
-        return $this->orderCache->getOrderData()['customer.address']; // can not be sent by tilda
+        return $this->order->getOrderData()['customer.address']; // can not be sent by tilda
     }
 
     /**
@@ -84,7 +85,7 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getAmountUnsafe()
     {
-        return $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_AMOUNT];
+        return $this->order->getOrderData()[RequestParamsTilda::ORDER_AMOUNT];
     }
 
 
@@ -99,18 +100,18 @@ class OrderWrapperTilda extends OrderWrapperCached
      */
     public function getCurrencyUnsafe()
     {
-        return $this->orderCache->getOrderData()[RequestParamsTilda::ORDER_CURRENCY];
+        return $this->order->getOrderData()[RequestParamsTilda::ORDER_CURRENCY];
     }
 
     /**
      * Массив товаров в заказе
-     * @return \esas\cmsgate\wrappers\OrderProductWrapperTilda[]
+     * @return \esas\cmsgate\tilda\wrappers\OrderProductWrapperTilda[]
      */
     public function getProductsUnsafe()
     {
         if ($this->products != null)
             return $this->products;
-        $items = json_decode($this->orderCache->getOrderData()[RequestParamsTilda::ORDER_ITEMS], true);
+        $items = json_decode($this->order->getOrderData()[RequestParamsTilda::ORDER_ITEMS], true);
         foreach ($items as $basketItem)
             $this->products[] = new OrderProductWrapperTilda($basketItem);
         return $this->products;

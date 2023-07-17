@@ -6,7 +6,10 @@
  * Time: 13:14
  */
 
-namespace esas\cmsgate;
+namespace esas\cmsgate\tilda;
+
+use esas\cmsgate\bridge\ConfigStorageBridge;
+use esas\cmsgate\ConfigFields;
 
 class ConfigStorageTilda extends ConfigStorageBridge
 {

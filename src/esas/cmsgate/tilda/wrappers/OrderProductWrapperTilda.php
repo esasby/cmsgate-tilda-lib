@@ -1,6 +1,7 @@
 <?php
-namespace esas\cmsgate\wrappers;
+namespace esas\cmsgate\tilda\wrappers;
 
+use esas\cmsgate\wrappers\OrderProductSafeWrapper;
 use Throwable;
 
 class OrderProductWrapperTilda extends OrderProductSafeWrapper

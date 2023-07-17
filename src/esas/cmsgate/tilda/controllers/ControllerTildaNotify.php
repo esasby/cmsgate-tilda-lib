@@ -6,20 +6,20 @@
  * Time: 14:13
  */
 
-namespace esas\cmsgate\controller;
+namespace esas\cmsgate\tilda\controllers;
 
-use esas\cmsgate\protocol\ProtocolTilda;
-use esas\cmsgate\protocol\TildaNotifyRq;
-use esas\cmsgate\protocol\TildaNotifyRs;
-use esas\cmsgate\Registry;
-use esas\cmsgate\wrappers\OrderWrapperTilda;
+use esas\cmsgate\tilda\CmsConnectorTilda;
+use esas\cmsgate\tilda\protocol\ProtocolTilda;
+use esas\cmsgate\tilda\protocol\TildaNotifyRq;
+use esas\cmsgate\tilda\protocol\TildaNotifyRs;
+use esas\cmsgate\wrappers\OrderWrapper;
 use Exception;
 use Throwable;
 
 class ControllerTildaNotify extends ControllerTilda
 {
     /**
-     * @param OrderWrapperTilda $orderWrapper
+     * @param OrderWrapper $orderWrapper
      * @return TildaNotifyRs
      * @throws Throwable
      */
@@ -36,7 +36,7 @@ class ControllerTildaNotify extends ControllerTilda
             $notifyTildaRq->setOrderId($orderWrapper->getOrderId());
             $notifyTildaRq->setAmount($orderWrapper->getAmount());
             $notifyTildaRq->setCurrency($orderWrapper->getCurrency());
-            $protocol = new ProtocolTilda(Registry::getRegistry()->getCmsConnector()->getNotificationURL());
+            $protocol = new ProtocolTilda(CmsConnectorTilda::fromRegistry()->getNotificationURL());
             $resp = $protocol->notifyOnOrderPayed($notifyTildaRq);
             if ($resp->hasError()) {
                 $this->logger->error($loggerMainString . "Can not notify Tilda CMS...");

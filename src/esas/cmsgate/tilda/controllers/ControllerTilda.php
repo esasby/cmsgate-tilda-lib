@@ -6,7 +6,7 @@
  * Time: 12:07
  */
 
-namespace esas\cmsgate\controller;
+namespace esas\cmsgate\tilda\controllers;
 
 
 use esas\cmsgate\controllers\Controller;
@@ -21,10 +21,6 @@ abstract class ControllerTilda extends Controller
      */
     protected $configWrapper;
 
-    /**
-     * @var Registry
-     */
-    protected $registry;
 
     /**
      * ControllerTilda constructor.
@@ -32,13 +28,12 @@ abstract class ControllerTilda extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->registry = Registry::getRegistry();
         $this->configWrapper = Registry::getRegistry()->getConfigWrapper();
     }
 
     public function checkOrderWrapper(&$orderWrapper) {
         if (is_numeric($orderWrapper)) //если передан orderId
-            $orderWrapper = $this->registry->getOrderWrapper($orderWrapper);
+            $orderWrapper = Registry::getRegistry()->getOrderWrapper($orderWrapper);
         if (empty($orderWrapper) || empty($orderWrapper->getOrderNumber())) {
             throw new Exception("Incorrect method call! orderWrapper is null or not well initialized");
         }

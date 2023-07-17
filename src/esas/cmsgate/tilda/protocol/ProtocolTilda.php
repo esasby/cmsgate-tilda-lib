@@ -1,10 +1,12 @@
 <?php
 
-namespace esas\cmsgate\protocol;
+namespace esas\cmsgate\tilda\protocol;
 
-use esas\cmsgate\bridge\ShopConfigBridge;
-use esas\cmsgate\BridgeConnector;
-use esas\cmsgate\tilda\RequestParamsTilda;
+use esas\cmsgate\bridge\dao\ShopConfigBridge;
+use esas\cmsgate\bridge\service\ShopConfigService;
+use esas\cmsgate\protocol\ProtocolCurl;
+use esas\cmsgate\protocol\RqMethod;
+use esas\cmsgate\protocol\RsType;
 use esas\cmsgate\utils\StringUtils;
 use Exception;
 use Throwable;
@@ -65,7 +67,7 @@ class ProtocolTilda extends ProtocolCurl
 
     private function generateNotificationSignature($request) {
         /** @var ShopConfigBridge $shopConfig */
-        $shopConfig = BridgeConnector::fromRegistry()->getShopConfigService()->getSessionShopConfigSafe();
+        $shopConfig = ShopConfigService::fromRegistry()->getSessionShopConfigSafe();
         $secret = $shopConfig->getCmsSecret();
         $line = $request[RequestParamsTilda::ORDER_ID]
             . '|' . $request[RequestParamsTilda::PAYMENT_STATUS]

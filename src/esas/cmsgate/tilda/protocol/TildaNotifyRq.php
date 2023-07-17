@@ -6,7 +6,7 @@
  * Time: 12:48
  */
 
-namespace esas\cmsgate\protocol;
+namespace esas\cmsgate\tilda\protocol;
 
 class TildaNotifyRq extends TildaRq
 {
@@ -58,7 +58,7 @@ class TildaNotifyRq extends TildaRq
     /**
      * @param mixed $currency
      */
-    public function setCurrency($currency): void
+    public function setCurrency($currency)
     {
         $this->currency = $currency;
     }
