@@ -7,7 +7,7 @@ namespace esas\cmsgate\tilda\security;
 use esas\cmsgate\bridge\security\CmsAuthServiceBySecret;
 use esas\cmsgate\tilda\protocol\RequestParamsTilda;
 
-class CmsAuthServiceTilda extends CmsAuthServiceBySecret
+abstract class CmsAuthServiceTilda extends CmsAuthServiceBySecret
 {
     public function generateVerificationSignature($request, $secret)
     {
@@ -17,5 +17,9 @@ class CmsAuthServiceTilda extends CmsAuthServiceBySecret
             . '|' . $request[RequestParamsTilda::ORDER_CURRENCY];
         $this->logger->info('Sign values: ' . $line);
         return hash('sha256', $line);
+    }
+
+    public function getRequestFieldSignature() {
+        return RequestParamsTilda::SIGNATURE;
     }
 }

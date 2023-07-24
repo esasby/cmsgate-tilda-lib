@@ -12,5 +12,5 @@ abstract class PropertiesTilda extends PropertiesBridge implements
     SandboxProperties,
     ViewProperties
 {
-    public abstract function isSandbox();
+    public abstract function getDefaultClientUICssLink();
 }

@@ -39,11 +39,11 @@ class CmsConnectorTilda extends CmsConnectorBridge
         return new CmsConnectorDescriptor(
             "cmsgate-tilda-lib",
             new VersionDescriptor(
-                "v2.0.0",
-                "2023-05-26"
+                "v2.0.2",
+                "2023-07-24"
             ),
             "Cmsgate Tilda connector",
-            "https://bitbucket.esas.by/projects/CG/repos/cmsgate-tilda-lib/browse",
+            "https://github.com/esasby/cmsgate-tilda-lib/",
             VendorDescriptor::esas(),
             "tilda"
         );
